@@ -1,4 +1,4 @@
-import { Token, User, Round } from './models';
+import { Token, User } from './models';
 import { sendResetPasswordEmail, sendVerificationEmail } from './mailer';
 
 const getUserSession = req => (

@@ -62,8 +62,6 @@ router.post('/sendVerificationEmail', routes.resendVerificationEmail);
 router.post('/forgotPassword', routes.forgotPassword);
 router.post('/resetPassword', routes.resetPassword);
 router.post('/userProfile', routes.userProfile);
-router.post('/saveRound', routes.saveRound);
-router.post('/getHistory', routes.getHistory);
 
 app.use('/api', router);
 app.use('/', defaultRoute);
