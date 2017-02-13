@@ -7,21 +7,10 @@ export default () => {
     const LocalStrategy = PassportLocal.Strategy;
 
     passport.serializeUser((user, done) => {
-        if(user.github) {
-            done(null, {
-                id: user._id,
-                name: user.github.email,
-                avatar: user.github.avatar,
-                verified: user.github.verified
-            });
-        }else {
-            done(null, {
-                id: user._id,
-                name: user.local.username,
-                avatar: '',
-                verified: user.local.verified
-            });
-        }
+        done(null, {
+            id: user._id,
+            name: user.local.username
+        });
     });
 
     passport.deserializeUser((user, done) => {
