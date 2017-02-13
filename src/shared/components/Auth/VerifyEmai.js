@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from '../../state';
 
-function mapStateToProps(state) {
-    return {
-        token: state.routing.locationBeforeTransitions.pathname.split('verify/')[1]
-    }
-}
+const mapStateToProps = state => ({
+    token: state.routing.locationBeforeTransitions.pathname.split('verify/')[1]
+});
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
 

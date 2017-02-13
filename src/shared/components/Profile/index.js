@@ -1,4 +1,3 @@
-import './profile.less';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,15 +5,18 @@ import { Actions } from './../../state';
 import { ResetPassword } from './../Auth';
 import { CheckMarkIcon, ExclamationIcon } from './../common/Icons';
 
-
 const mapStateToProps = (state) => ({
-    user: state.atom.user
+    name: state.atom.user.name,
+    avatar: state.atom.user.avatar,
+    verified: state.atom.user.verified
 });
+
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 @connect(mapStateToProps)
 export class Profile extends Component {
     render(){
-        const { name, avatar, verified } = this.props.user;
+        const { name, avatar, verified } = this.props;
 
         return(
             <div className="profile">
@@ -41,8 +43,6 @@ class TrustedUser extends Component {
         )
     }
 }
-
-const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 @connect(mapStateToProps, mapDispatchToProps)
 class StandardUser extends Component {

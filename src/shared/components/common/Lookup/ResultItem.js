@@ -1,16 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { CheckMarkIcon } from './../Icons';
 
 export default class ResultItem extends Component {
-    static propTypes = {
-        result: PropTypes.object,
-        resultClassNameField: PropTypes.string,
-        isHovered: PropTypes.bool,
-        select: PropTypes.func,
-        classNames: PropTypes.string,
-        styles: PropTypes.object
-    };
-
     static defaultProps = {
         result: {
             text: ''

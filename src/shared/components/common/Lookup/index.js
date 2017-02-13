@@ -1,23 +1,7 @@
-import './lookup.less';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ResultItem from './ResultItem';
 
 export class Lookup extends Component {
-    static propTypes = {
-        placeholder: PropTypes.string,
-        results: PropTypes.array,
-        classNames: PropTypes.string,
-        resultClassNameField: PropTypes.string,
-        width: PropTypes.number,
-        inputStyles: PropTypes.object,
-        listStyles: PropTypes.object,
-        resultStyles: PropTypes.object,
-        onChange: PropTypes.func,
-        onFocus: PropTypes.func,
-        select: PropTypes.func,
-        deSelect: PropTypes.func
-    };
-
     static defaultProps = {
         placeholder: '',
         results: [],

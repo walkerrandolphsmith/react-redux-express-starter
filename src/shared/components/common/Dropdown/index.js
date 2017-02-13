@@ -1,4 +1,3 @@
-import './dropdown.less';
 import React, {Component, PropTypes} from 'react';
 import { ChevronIcon } from './../Icons';
 

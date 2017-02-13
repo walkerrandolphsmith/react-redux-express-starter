@@ -1,4 +1,3 @@
-import './progress-bar.less';
 import React from 'react';
 
 export class ProgressBar extends React.Component {

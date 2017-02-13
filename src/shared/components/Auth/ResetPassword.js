@@ -5,7 +5,11 @@ import { Actions } from './../../state';
 import { ValidationIcons } from './ValidationIcons';
 import { isValidPassword, passwordsMatch } from './formValidation';
 
-@connect(() => ({}), (dispatch) => bindActionCreators({ ...Actions }, dispatch))
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...Actions }, dispatch);
+
+@connect(mapStateToProps, mapDispatchToProps)
 export class ResetPassword extends Component {
     constructor(props, context){
         super(props, context);

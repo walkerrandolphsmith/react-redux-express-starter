@@ -6,7 +6,6 @@ import { ValidationIcons } from './ValidationIcons';
 import { Button } from './../common/Buttons';
 import { isValidEmail } from './formValidation';
 
-
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => bindActionCreators({ push }, dispatch);
 

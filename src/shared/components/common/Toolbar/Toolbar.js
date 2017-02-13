@@ -1,5 +1,4 @@
 import React from 'react';
-import './toolbar.less';
 
 class Toolbar extends React.Component {
     static defaultProps = {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
@@ -7,7 +7,11 @@ import { ValidationIcons } from './ValidationIcons';
 import { Button } from './../common/Buttons';
 import { isValidEmail, isValidUsername, isValidPassword, passwordsMatch } from './formValidation';
 
-@connect(() => ({}), (dispatch) => bindActionCreators({ ...Actions, push }, dispatch))
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...Actions, push }, dispatch) 
+
+@connect(mapStateToProps, mapDispatchToProps)
 export class SignUp extends Component {
     constructor(){
         super();

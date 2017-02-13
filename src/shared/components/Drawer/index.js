@@ -1,17 +1,21 @@
-import './drawer.less';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from './../../state';
-import { UserIcon, HistoryIcon, KeyboardIcon, LogoutIcon, CheckMarkIcon } from './../common/Icons';
+import { UserIcon, LogoutIcon, CheckMarkIcon } from './../common/Icons';
 import { push } from 'react-router-redux';
 
-@connect(() => ({}), (dispatch) => bindActionCreators({ ...Actions, push }, dispatch))
+const mapStateToProps = state => ({
+    name: state.atom.user.name,
+    verified: state.atom.user.verified
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...Actions, push }, dispatch);
+
+@connect(mapStateToProps, mapDispatchToProps)
 export class Drawer extends Component {
     constructor(props, context) {
         super(props, context);
-        this.viewHistory = this.viewHistory.bind(this);
-        this.viewPractice = this.viewPractice.bind(this);
         this.viewProfile = this.viewProfile.bind(this);
     }
 
@@ -22,16 +26,15 @@ export class Drawer extends Component {
 
 
     render () {
-        const { user, logout } = this.props;
-        const { name, verified } = user;
-        const emailVerified = verified;
+        const { name, verified, logout } = this.props;
+
         return (
             <div id="inner-drawer">
                 <section id="my-info">
                     <header><h2>Faster</h2></header>
                     <div className="member">
                         <p>
-                            {emailVerified ? <CheckMarkIcon /> : ''}
+                            {verified ? <CheckMarkIcon /> : ''}
                             {name}
                         </p>
                     </div>
@@ -46,9 +49,3 @@ export class Drawer extends Component {
         );
     }
 }
-
-Drawer.defaultProps = {
-    user: {
-        name: 'Signup'
-    }
-};
