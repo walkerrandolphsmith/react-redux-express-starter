@@ -2,28 +2,27 @@ import { createAction } from 'redux-actions';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 
-const EMAIL_VERIFIED = 'EMAIL_VERIFIED';
+const ACTION_TYPE = 'EMAIL_VERIFIED';
 
-const success = createAction(EMAIL_VERIFIED);
+const actionCreator = createAction(ACTION_TYPE);
 
 export const verifyEmail = token => dispatch => axios
     .post('/api/verifyEmail', {
         token
     })
-    .then(res => {
-        dispatch(success());
+    .then(() => {
+        dispatch(actionCreator());
         dispatch(push('/profile'));
     }).catch(err => {
 
     });
 
+const reducer = (state, payload) => ({
+    ...state,
+    user: { ...state.user, verified: true },
+    auth: true
+});
+
 export default {
-    [EMAIL_VERIFIED]: (state, payload) => ({
-        ...state,
-        user: {
-            ...state.user,
-            verified: true
-        },
-        auth: true
-    })
+    [ACTION_TYPE]: reducer
 }

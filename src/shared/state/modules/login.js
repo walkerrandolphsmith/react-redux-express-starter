@@ -2,15 +2,15 @@ import { createAction } from 'redux-actions';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 
-const LOGIN = 'LOGIN';
+const ACTION_TYPE = 'LOGIN';
 
-const success = createAction(LOGIN, (user) => ({ user }));
+const actionCreator = createAction(ACTION_TYPE, (user) => ({ user }));
 
 export const login = (credentials) => (dispatch) => {
     axios.post('/api/login', credentials)
         .then(response => {
             const user = response.data;
-            dispatch(success(user));
+            dispatch(actionCreator(user));
             dispatch(push('/profile'));
         })
         .catch(error => {
@@ -18,6 +18,8 @@ export const login = (credentials) => (dispatch) => {
         })
 };
 
+const reducer = (state, payload) => ({ ...state, user: payload.user, auth: true });
+
 export default {
-    [LOGIN]: (state, payload) => ({ ...state, user: payload.user, auth: true })
+    [ACTION_TYPE]: reducer
 }

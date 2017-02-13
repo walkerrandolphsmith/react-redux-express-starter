@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const sendEmailVerification = id => dispatch => axios
+export const sendEmailVerification = id => () => axios
         .post('/api/sendVerificationEmail', {
             userId: id
         })

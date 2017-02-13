@@ -2,13 +2,14 @@ import { createAction } from 'redux-actions';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 
+const ACTION_TYPE = 'LOGOUT';
 
-const success = createAction('LOGOUT');
+const actionCreator = createAction(ACTION_TYPE);
 
 export const logout = () => (dispatch) => {
     axios.get('/api/logout')
         .then(() => {
-            dispatch(success());
+            dispatch(actionCreator());
             dispatch(push('/login'));
         })
         .catch(error => {
@@ -16,6 +17,8 @@ export const logout = () => (dispatch) => {
         })
 };
 
+const reducer = (state, payload) => ({ ...state, user: null, auth: false });
+
 export default {
-    ['LOGOUT']: (state, payload) => ({ ...state, user: null, auth: false })
+    [ACTION_TYPE]: reducer
 }
