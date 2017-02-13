@@ -3,9 +3,7 @@ import createMiddlewares from './createMiddlewares';
 import rootReducer from './rootReducer';
 
 export default ({ initialState, history }) => {
-    const enhancers = [createMiddlewares(history)].concat([
-        typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f
-    ]);
+    const enhancers = [createMiddlewares(history)];
     const store = createStore(rootReducer, initialState, compose(...enhancers));
 
     if (module.hot) {
