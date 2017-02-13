@@ -1,4 +1,4 @@
-var Spinner = require('cli-spinner').Spinner;
+const Spinner = require('cli-spinner').Spinner;
 import Webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import { devHost, devPort } from './env';
