@@ -1,32 +1,48 @@
-process.env.NODE_ENV = 'test';
-
-var wallabyWebpack = require('wallaby-webpack');
-var webpackConfig = require('./webpack.config');
-webpackConfig.externals = {
-    'react': 'React'
-};
-var wallabyPostprocessor = wallabyWebpack(webpackConfig);
-
 module.exports = function(wallaby) {
+    var wallabyWebpack;
+    var packageConfig;
+    var specFilePattern;
+    var srcFilePattern;
+    var babelProcessor;
+    var webpackPostProcessor;
+
+    wallabyWebpack = require('wallaby-webpack');
+    packageConfig = require('./package.json');
+
+    specFilePattern = 'scripts/**/*.test.js';
+    srcFilePattern = 'scripts/**/*.js*';
+
+    babelProcessor = wallaby.compilers.babel(packageConfig.babel);
+
+    webpackPostProcessor = wallabyWebpack({ });
+
     return {
+        testFramework: 'mocha',
+        debug: true,
+        workers: {
+            initial: 12,
+            regular: 12
+        },
         files: [
-            {pattern: 'node_modules/chai/chai.js', instrument: false},
-            {pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false},
-            {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
-            {pattern: 'src/**/*.js', load: false},
-            {pattern: 'src/**/*.spec.js', ignore: true},
-            {pattern: 'src/client/**/*.js', ignore: true}
+            { pattern: 'node_modules/chai/chai.js', instrument: false },
+            { pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false },
+            { pattern: srcFilePattern, load: false },
+            { pattern: specFilePattern, ignore: true }
         ],
         tests: [
-            {pattern: 'src/**/*.spec.js', load: false}
+            { pattern: specFilePattern, load: false }
         ],
         compilers: {
-            '**/*.js': wallaby.compilers.babel()
+            '**/*.js*': babelProcessor
         },
-        postprocessor: wallabyPostprocessor,
-        setup: function() {
+        postprocessor: webpackPostProcessor,
+        bootstrap: function() {
             chai.should();
+            expect = chai.expect;
+            assert = chai.assert;
+            wallaby.testFramework.ui('tdd');
+
             window.__moduleBundler.loadTests();
         }
-    }
+    };
 };
